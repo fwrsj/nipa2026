@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIPA 2026 — IEEE ICNP Workshop</title>
+  <style>
+    :root {
+      --cyan:   #00e5ff;
+      --blue:   #2979ff;
+      --purple: #aa00ff;
+      --green:  #00e676;
+      --bg:     #050a18;
+      --bg2:    #080f22;
+      --card:   rgba(255,255,255,0.04);
+      --border: rgba(0,229,255,0.18);
+      --text:   #ccd6f6;
+      --muted:  #8892b0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── Canvas Background ─── */
+    #net-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 64px;
+      background: rgba(5,10,24,0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .85rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* ─── Sections ─── */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── Hero ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+    }
+
+    .hero-inner { max-width: 860px; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .4rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+      background: rgba(0,229,255,0.06);
+      animation: fadeDown .8s ease both;
+    }
+
+    .badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: pulse 1.6s ease infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:.4; transform:scale(1.4); }
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin-bottom: 1rem;
+      animation: fadeDown .8s .15s ease both;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+      animation: fadeDown .8s .3s ease both;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+      animation: fadeDown .8s .45s ease both;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-size: .9rem;
+      color: var(--muted);
+    }
+
+    .meta-item svg { color: var(--cyan); flex-shrink: 0; }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeDown .8s .6s ease both;
+    }
+
+    .btn {
+      padding: .75rem 2rem;
+      border-radius: 8px;
+      font-size: .9rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      display: inline-block;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      color: #050a18;
+      box-shadow: 0 0 24px rgba(0,229,255,.3);
+    }
+
+    .btn-primary:hover { box-shadow: 0 0 40px rgba(0,229,255,.5); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      background: rgba(0,229,255,0.05);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0,229,255,0.12);
+      box-shadow: 0 0 20px rgba(0,229,255,.15);
+    }
+
+    @keyframes fadeDown {
+      from { opacity:0; transform:translateY(-18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ─── Countdown ─── */
+    #countdown {
+      padding: 4rem 0;
+      background: linear-gradient(180deg, transparent, rgba(0,229,255,0.03), transparent);
+    }
+
+    .count-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      max-width: 600px;
+      margin: 2rem auto 0;
+    }
+
+    .count-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem .5rem 1rem;
+      text-align: center;
+      backdrop-filter: blur(8px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .count-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+    }
+
+    .count-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .count-label {
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: .25rem;
+    }
+
+    /* ─── Section titles ─── */
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: .6rem;
+    }
+
+    .section-title h2 {
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -.02em;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 620px;
+      margin: .8rem auto 0;
+    }
+
+    /* ─── About ─── */
+    #about { padding: 6rem 0; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .stat-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.2rem;
+      backdrop-filter: blur(8px);
+      transition: transform .25s, border-color .25s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0,229,255,.4);
+    }
+
+    .stat-icon {
+      font-size: 1.6rem;
+      margin-bottom: .6rem;
+    }
+
+    .stat-val {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .stat-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: .2rem;
+    }
+
+    /* ─── Topics ─── */
+    #topics {
+      padding: 6rem 0;
+      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(41,121,255,.07) 0%, transparent 70%);
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .topic-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.4rem 1.4rem 1.4rem 1.6rem;
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+      backdrop-filter: blur(8px);
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .topic-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--cyan), var(--purple));
+      border-radius: 3px 0 0 3px;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,229,255,.35);
+      box-shadow: 0 8px 32px rgba(0,229,255,.08);
+    }
+
+    .topic-card:hover::before { opacity: 1; }
+
+    .topic-num {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(0,229,255,.1);
+      border-radius: 6px;
+      padding: .25rem .5rem;
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+      margin-top: .1rem;
+    }
+
+    .topic-text {
+      font-size: .9rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ─── Dates ─── */
+    #dates {
+      padding: 6rem 0;
+    }
+
+    .dates-list {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .date-item {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.6rem 1.8rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 0;
+      transition: background .25s;
+      position: relative;
+    }
+
+    .date-item:first-child { border-radius: 12px 12px 0 0; }
+    .date-item:last-child  { border-radius: 0 0 12px 12px; }
+    .date-item + .date-item { border-top: none; }
+
+    .date-item:hover { background: rgba(0,229,255,0.06); }
+
+    .date-item.highlight {
+      border-color: rgba(0,229,255,.45);
+      background: rgba(0,229,255,0.06);
+    }
+
+    .date-label {
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+      font-weight: 600;
+    }
+
+    .date-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(0,229,255,.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .date-name { font-size: .95rem; }
+    .date-sub  { font-size: .78rem; color: var(--muted); }
+
+    .date-val {
+      text-align: right;
+      font-weight: 700;
+      font-size: .95rem;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .deadline-badge {
+      display: inline-block;
+      font-size: .68rem;
+      padding: .15rem .5rem;
+      background: rgba(0,229,255,.15);
+      border: 1px solid rgba(0,229,255,.35);
+      border-radius: 99px;
+      color: var(--cyan);
+      margin-top: .25rem;
+    }
+
+    /* ─── Submission ─── */
+    #submission {
+      padding: 6rem 0;
+      background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(170,0,255,.07) 0%, transparent 70%);
+    }
+
+    .sub-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .sub-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .sub-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--cyan);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+    }
+
+    .sub-card p, .sub-card li {
+      font-size: .9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .sub-card ul {
+      padding-left: 1.2rem;
+    }
+
+    .sub-card li + li { margin-top: .4rem; }
+
+    .sub-notice {
+      margin-top: 2rem;
+      padding: 1.4rem 1.8rem;
+      background: rgba(0,229,255,.05);
+      border: 1px solid rgba(0,229,255,.25);
+      border-radius: 12px;
+      font-size: .9rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .sub-notice strong { color: var(--cyan); }
+
+    /* ─── Organizers ─── */
+    #organizers { padding: 6rem 0; }
+
+    .org-section + .org-section { margin-top: 3rem; }
+
+    .org-section-title {
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .org-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .chair-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .chair-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      backdrop-filter: blur(8px);
+      transition: transform .25s, border-color .25s;
+    }
+
+    .chair-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,229,255,.4);
+    }
+
+    .chair-avatar {
+      width: 54px; height: 54px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+      letter-spacing: -.02em;
+    }
+
+    .chair-info h4 {
+      font-size: .97rem;
+      font-weight: 700;
+      color: #e2e8f0;
+    }
+
+    .chair-info p {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: .2rem;
+      line-height: 1.4;
+    }
+
+    .tpc-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .tpc-box span {
+      display: block;
+      font-size: 2rem;
+      margin-bottom: .6rem;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .82rem;
+      background: rgba(5,10,24,.8);
+      backdrop-filter: blur(8px);
+    }
+
+    footer .footer-logo {
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--cyan), var(--blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: .5rem;
+      font-size: 1rem;
+    }
+
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ─── Glowing divider ─── */
+    .glow-divider {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      margin: 0 auto 3rem;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .sub-grid   { grid-template-columns: 1fr; }
+      .count-grid { grid-template-columns: repeat(2,1fr); }
+      .date-item  { grid-template-columns: 1fr; gap: .5rem; }
+      .date-val   { text-align: left; }
+      .stat-cards { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── Scroll reveal ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Network canvas -->
+<canvas id="net-canvas"></canvas>
+
+<!-- ─── Nav ─── -->
+<nav>
+  <div class="nav-logo">NIPA 2026</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#topics">Topics</a></li>
+    <li><a href="#dates">Dates</a></li>
+    <li><a href="#submission">Submit</a></li>
+    <li><a href="#organizers">Organizers</a></li>
+  </ul>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      IEEE ICNP 2026 Workshop &nbsp;·&nbsp; Call for Papers Open
+    </div>
+
+    <h1>
+      Network Infrastructure<br/>
+      &amp; Protocols for<br/>
+      <span class="gradient-text">AI Agents</span>
+    </h1>
+
+    <p class="hero-sub">
+      NIPA 2026 — Shaping the networking foundations of the <em>Internet of Agents</em>.
+      Co-located with IEEE ICNP 2026 in Tempe, Arizona, USA.
+    </p>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Submission Deadline: June 12, 2026
+      </div>
+      <div class="meta-item">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/>
+          <circle cx="12" cy="11" r="3"/>
+        </svg>
+        Tempe, Arizona, USA
+      </div>
+      <div class="meta-item">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+        Up to 6 Pages · IEEE Format
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <a href="#submission" class="btn btn-primary">Submit Paper</a>
+      <a href="#topics" class="btn btn-outline">Topics of Interest</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Countdown ─── -->
+<section id="countdown">
+  <div class="container">
+    <div class="section-title reveal">
+      <span class="section-tag">Submission Deadline</span>
+      <h2>June 12, 2026 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:1.1rem">(Anywhere on Earth)</span></h2>
+    </div>
+    <div class="count-grid reveal">
+      <div class="count-box"><div class="count-num" id="cd-days">--</div><div class="count-label">Days</div></div>
+      <div class="count-box"><div class="count-num" id="cd-hours">--</div><div class="count-label">Hours</div></div>
+      <div class="count-box"><div class="count-num" id="cd-mins">--</div><div class="count-label">Minutes</div></div>
+      <div class="count-box"><div class="count-num" id="cd-secs">--</div><div class="count-label">Seconds</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── About ─── -->
+<section id="about">
+  <div class="container">
+    <div class="glow-divider"></div>
+    <div class="section-title reveal">
+      <span class="section-tag">About the Workshop</span>
+      <h2>The Internet of Agents</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          As Artificial Intelligence evolves from isolated Large Language Models to collaborative,
+          multi-agent systems, the networking landscape faces an unprecedented paradigm shift.
+          The <strong style="color:var(--cyan)">Internet of Agents (IoA)</strong> envisions a
+          distributed ecosystem where autonomous agents continuously communicate, negotiate, and
+          synchronize — generating highly specific traffic patterns that challenge traditional
+          network infrastructures and protocol stacks.
+        </p>
+        <p>
+          Realizing the IoA presents critical research challenges across infrastructure, security,
+          and governance. At the architectural level, achieving seamless interconnectivity requires
+          moving beyond inefficient human GUI emulations toward standardized, agent-native
+          communication protocols that support diverse, distributed devices.
+        </p>
+        <p>
+          As networks scale, capability discovery systems must overcome limited semantic expressivity
+          and indexing inefficiencies to accurately match heterogeneous agents in highly dynamic,
+          time-varying environments. Decentralized coordination introduces profound security and
+          privacy hurdles — demanding resilient defenses against hallucination cascades, knowledge
+          poisoning, and cyber-physical attacks.
+        </p>
+        <p>
+          NIPA 2026 brings together researchers and experts from academia and industry to share the
+          latest research, identify gaps, and define the roadmap for AI-native networking.
+        </p>
+      </div>
+
+      <div class="stat-cards reveal">
+        <div class="stat-card">
+          <div class="stat-icon">🌐</div>
+          <div class="stat-val">IoA</div>
+          <div class="stat-desc">Internet of Agents — the next evolution of distributed computing</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔒</div>
+          <div class="stat-val">Security</div>
+          <div class="stat-desc">Defending against cross-agent threats and knowledge poisoning</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-val">Protocols</div>
+          <div class="stat-desc">MCP, A2A, ANP and agent-native communication stacks</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🔬</div>
+          <div class="stat-val">Research</div>
+          <div class="stat-desc">IEEE Xplore indexed proceedings, double-blind review</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🏗️</div>
+          <div class="stat-val">Infrastructure</div>
+          <div class="stat-desc">Scalable agent-native network infrastructure for the IoA era</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Topics ─── -->
+<section id="topics">
+  <div class="container">
+    <div class="glow-divider"></div>
+    <div class="section-title reveal">
+      <span class="section-tag">Topics of Interest</span>
+      <h2>Research Areas</h2>
+      <p>We welcome original contributions across the following topics, including position papers on disruptive ideas and early-stage work.</p>
+    </div>
+
+    <div class="topics-grid">
+
+      <div class="topic-card reveal">
+        <span class="topic-num">01</span>
+        <span class="topic-text">High performance network technology adaptations for agentic workloads</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">02</span>
+        <span class="topic-text">Congestion control and flow measurement for multi-agent synchronization</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">03</span>
+        <span class="topic-text">Hardware-software co-design and offloading for AI networking</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">04</span>
+        <span class="topic-text">Novel network architectures to support agent interconnection</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">05</span>
+        <span class="topic-text">Agent communication and collaboration protocols — registration, discovery, authentication, interaction, and tooling</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">06</span>
+        <span class="topic-text">Semantic-aware and goal-oriented communication</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">07</span>
+        <span class="topic-text">Integrating and optimizing existing protocols such as MCP, A2A, and ANP</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">08</span>
+        <span class="topic-text">Designing P2P, client-server, and hybrid agent network topologies for seamless collaboration</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">09</span>
+        <span class="topic-text">Adaptive workload partitioning and state synchronization between cloud datacenters and edge nodes</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">10</span>
+        <span class="topic-text">Dynamic capability discovery and management</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">11</span>
+        <span class="topic-text">Dynamic task matching and workflow orchestration</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">12</span>
+        <span class="topic-text">Conflict resolution and multi-agent debate</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">13</span>
+        <span class="topic-text">Decentralized identity and access control</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">14</span>
+        <span class="topic-text">Defending against cross-agent threats</span>
+      </div>
+
+      <div class="topic-card reveal">
+        <span class="topic-num">15</span>
+        <span class="topic-text">Privacy-aware architectures</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Dates ─── -->
+<section id="dates">
+  <div class="container">
+    <div class="glow-divider"></div>
+    <div class="section-title reveal">
+      <span class="section-tag">Timeline</span>
+      <h2>Important Dates</h2>
+      <p>All deadlines are Anywhere on Earth (AoE, UTC−12).</p>
+    </div>
+
+    <div class="dates-list reveal">
+      <div class="date-item highlight">
+        <div class="date-label">
+          <div class="date-icon">📝</div>
+          <div>
+            <div class="date-name">Paper Submission Deadline</div>
+            <div class="date-sub">Original research, position papers, and early-stage work</div>
+            <span class="deadline-badge">AoE (UTC−12)</span>
+          </div>
+        </div>
+        <div>
+          <div class="date-val">June 12, 2026</div>
+        </div>
+      </div>
+
+      <div class="date-item">
+        <div class="date-label">
+          <div class="date-icon">📬</div>
+          <div>
+            <div class="date-name">Acceptance Notification</div>
+            <div class="date-sub">Authors notified of review decisions</div>
+          </div>
+        </div>
+        <div class="date-val">July 3, 2026</div>
+      </div>
+
+      <div class="date-item">
+        <div class="date-label">
+          <div class="date-icon">📄</div>
+          <div>
+            <div class="date-name">Camera-Ready Deadline</div>
+            <div class="date-sub">Final paper submission for proceedings</div>
+          </div>
+        </div>
+        <div class="date-val">July 31, 2026</div>
+      </div>
+
+      <div class="date-item">
+        <div class="date-label">
+          <div class="date-icon">🎤</div>
+          <div>
+            <div class="date-name">Workshop Day</div>
+            <div class="date-sub">Co-located with IEEE ICNP 2026, Tempe, AZ</div>
+          </div>
+        </div>
+        <div class="date-val">TBA, 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Submission ─── -->
+<section id="submission">
+  <div class="container">
+    <div class="glow-divider"></div>
+    <div class="section-title reveal">
+      <span class="section-tag">Submission</span>
+      <h2>Guidelines</h2>
+      <p>We welcome a broad range of contributions aimed at advancing networking for AI agent systems.</p>
+    </div>
+
+    <div class="sub-grid">
+      <div class="sub-card reveal">
+        <h3>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          </svg>
+          Paper Types
+        </h3>
+        <ul>
+          <li>Original research papers</li>
+          <li>Position papers on disruptive ideas</li>
+          <li>Early-stage work with potential for full papers</li>
+        </ul>
+      </div>
+
+      <div class="sub-card reveal">
+        <h3>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h7"/>
+          </svg>
+          Format Requirements
+        </h3>
+        <ul>
+          <li>Up to <strong style="color:#e2e8f0">6 pages</strong> in IEEE Computer Society format</li>
+          <li>Includes references and appendices</li>
+          <li>Original, unpublished work only</li>
+          <li>Not under consideration elsewhere</li>
+        </ul>
+      </div>
+
+      <div class="sub-card reveal">
+        <h3>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+          </svg>
+          Review Process
+        </h3>
+        <ul>
+          <li>Double-blind peer review</li>
+          <li>Authors must anonymize submissions</li>
+          <li>No author names or affiliations in paper</li>
+          <li>Avoid implicit identity disclosure (e.g., self-citation, funding)</li>
+        </ul>
+      </div>
+
+      <div class="sub-card reveal">
+        <h3>
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+          Publication
+        </h3>
+        <ul>
+          <li>Accepted papers included in workshop proceedings</li>
+          <li>Published in <strong style="color:#e2e8f0">IEEE Xplore</strong></li>
+          <li>Presenters expected to attend the workshop</li>
+          <li>Presented work will gain IEEE ICNP visibility</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-notice reveal">
+      <strong>Submission Website</strong> — The paper submission portal will be disclosed soon.<br/>
+      Check back or contact the organizers for updates.
+    </div>
+  </div>
+</section>
+
+<!-- ─── Organizers ─── -->
+<section id="organizers">
+  <div class="container">
+    <div class="glow-divider"></div>
+    <div class="section-title reveal">
+      <span class="section-tag">People</span>
+      <h2>Organizers &amp; Committee</h2>
+    </div>
+
+    <div class="org-section reveal">
+      <div class="org-section-title">Workshop Co-Chairs</div>
+      <div class="chair-grid">
+        <div class="chair-card">
+          <div class="chair-avatar">HS</div>
+          <div class="chair-info">
+            <h4>Haoyu Song</h4>
+            <p>Futurewei Technologies</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="org-section reveal" style="margin-top:2.5rem">
+      <div class="org-section-title">Technical Program Committee</div>
+      <div class="tpc-box">
+        <span>🔬</span>
+        TPC members to be announced.<br/>
+        <span style="color:var(--cyan)">Announcements coming soon.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="footer-logo">NIPA 2026</div>
+  <p>
+    IEEE ICNP Workshop on Network Infrastructure and Protocols for AI Agents<br/>
+    Co-located with <a href="https://icnp2026.ieee-icnp.org" target="_blank" rel="noopener">IEEE ICNP 2026</a>
+    &nbsp;·&nbsp; Tempe, Arizona, USA
+  </p>
+  <p style="margin-top:.8rem">
+    &copy; 2026 NIPA Workshop Organizers
+  </p>
+</footer>
+
+<script>
+/* ─── Network Canvas Animation ─── */
+(function () {
+  const canvas = document.getElementById('net-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], RAF;
+
+  const CYAN   = '#00e5ff';
+  const BLUE   = '#2979ff';
+  const PURPLE = '#aa00ff';
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function createNodes(n) {
+    nodes = [];
+    for (let i = 0; i < n; i++) {
+      const hue = Math.random();
+      nodes.push({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - .5) * .45,
+        vy: (Math.random() - .5) * .45,
+        r:  Math.random() * 2 + 1,
+        color: hue < .5 ? CYAN : hue < .8 ? BLUE : PURPLE
+      });
+    }
+  }
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+
+    const maxDist = 160;
+
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      a.x += a.vx; a.y += a.vy;
+      if (a.x < 0 || a.x > W) a.vx *= -1;
+      if (a.y < 0 || a.y > H) a.vy *= -1;
+
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          const alpha = (1 - dist / maxDist) * .35;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.strokeStyle = `rgba(0,229,255,${alpha})`;
+          ctx.lineWidth = .7;
+          ctx.stroke();
+        }
+      }
+
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fillStyle = a.color;
+      ctx.globalAlpha = .7;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    RAF = requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => {
+    resize();
+    createNodes(Math.floor((W * H) / 14000));
+  });
+
+  resize();
+  createNodes(Math.floor((W * H) / 14000));
+  draw();
+})();
+
+/* ─── Countdown Timer ─── */
+(function () {
+  // June 12, 2026 23:59:59 AoE = June 13, 2026 11:59:59 UTC
+  const deadline = new Date('2026-06-13T11:59:59Z');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function tick() {
+    const now  = Date.now();
+    const diff = deadline - now;
+    if (diff <= 0) {
+      ['days','hours','mins','secs'].forEach(id => {
+        document.getElementById('cd-' + id).textContent = '00';
+      });
+      return;
+    }
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000)  / 60000);
+    const secs  = Math.floor((diff % 60000)    / 1000);
+
+    document.getElementById('cd-days').textContent  = pad(days);
+    document.getElementById('cd-hours').textContent = pad(hours);
+    document.getElementById('cd-mins').textContent  = pad(mins);
+    document.getElementById('cd-secs').textContent  = pad(secs);
+  }
+
+  tick();
+  setInterval(tick, 1000);
+})();
+
+/* ─── Scroll Reveal ─── */
+(function () {
+  const els = document.querySelectorAll('.reveal');
+  const io  = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: .12 });
+  els.forEach(el => io.observe(el));
+})();
+</script>
+</body>
+</html>
