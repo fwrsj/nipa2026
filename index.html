@@ -628,6 +628,45 @@
       backdrop-filter: blur(8px);
     }
 
+    .tpc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .tpc-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+      backdrop-filter: blur(8px);
+      transition: transform .25s, border-color .25s;
+    }
+
+    .tpc-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,229,255,.4);
+    }
+
+    .tpc-avatar {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .85rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .tpc-info h4 { font-size: .9rem; font-weight: 700; color: #e2e8f0; }
+    .tpc-info p  { font-size: .75rem; color: var(--muted); margin-top: .15rem; line-height: 1.3; }
+
     .tpc-box span {
       display: block;
       font-size: 2rem;
@@ -732,7 +771,7 @@
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
-        Submission Deadline: June 12, 2026
+        Submission Deadline: June 19, 2026
       </div>
       <div class="meta-item">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -761,7 +800,7 @@
   <div class="container">
     <div class="section-title reveal">
       <span class="section-tag">Submission Deadline</span>
-      <h2>June 12, 2026 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:1.1rem">(Anywhere on Earth)</span></h2>
+      <h2>June 19, 2026 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:1.1rem">(Anywhere on Earth)</span></h2>
     </div>
     <div class="count-grid reveal">
       <div class="count-box"><div class="count-num" id="cd-days">--</div><div class="count-label">Days</div></div>
@@ -1091,16 +1130,59 @@
             <p>Futurewei Technologies</p>
           </div>
         </div>
+        <div class="chair-card">
+          <div class="chair-avatar">ZQ</div>
+          <div class="chair-info">
+            <h4>Zafar Ayyub Qazi</h4>
+            <p>Lahore University of Management Sciences (LUMS)</p>
+          </div>
+        </div>
+        <div class="chair-card">
+          <div class="chair-avatar">HX</div>
+          <div class="chair-info">
+            <h4>Hong Xu</h4>
+            <p>The Chinese University of Hong Kong (CUHK)</p>
+          </div>
+        </div>
 
       </div>
     </div>
 
     <div class="org-section reveal" style="margin-top:2.5rem">
       <div class="org-section-title">Technical Program Committee</div>
-      <div class="tpc-box">
-        <span>🔬</span>
-        TPC members to be announced.<br/>
-        <span style="color:var(--cyan)">Announcements coming soon.</span>
+      <div class="tpc-grid">
+        <div class="tpc-card">
+          <div class="tpc-avatar">DK</div>
+          <div class="tpc-info"><h4>Dirk Kutscher</h4><p>HKUST</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">ZQ</div>
+          <div class="tpc-info"><h4>Zafar Ayyub Qazi</h4><p>LUMS</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">BL</div>
+          <div class="tpc-info"><h4>Biwei Li</h4><p>Southeast University</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">RL</div>
+          <div class="tpc-info"><h4>Renwei Li</h4><p>Southeast University</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">SL</div>
+          <div class="tpc-info"><h4>Shihan Lin</h4><p>University of Michigan</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">QX</div>
+          <div class="tpc-info"><h4>Qiao Xiang</h4><p>Xiamen University</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">LZ</div>
+          <div class="tpc-info"><h4>Lixia Zhang</h4><p>UCLA</p></div>
+        </div>
+        <div class="tpc-card">
+          <div class="tpc-avatar">XZ</div>
+          <div class="tpc-info"><h4>Xiaolong Zheng</h4><p>Huawei</p></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1201,8 +1283,8 @@
 
 /* ─── Countdown Timer ─── */
 (function () {
-  // June 12, 2026 23:59:59 AoE = June 13, 2026 11:59:59 UTC
-  const deadline = new Date('2026-06-13T11:59:59Z');
+  // June 19, 2026 23:59:59 AoE = June 20, 2026 11:59:59 UTC
+  const deadline = new Date('2026-06-20T11:59:59Z');
 
   function pad(n) { return String(n).padStart(2, '0'); }
 
