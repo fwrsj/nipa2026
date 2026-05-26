@@ -10,7 +10,7 @@
 
     body {
       font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-      background: #0a0f1e;
+      background: #e8ecf0;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -18,633 +18,584 @@
       padding: 40px 20px;
     }
 
-    /* ── A4 poster canvas ── */
+    /* ── A4 poster ── */
     .poster {
-      width: 794px;          /* A4 @ 96dpi */
+      width: 794px;
       min-height: 1123px;
-      background: #060b1a;
-      border: 1px solid rgba(0,229,255,.15);
-      border-radius: 4px;
+      background: #ffffff;
+      border-radius: 6px;
       overflow: hidden;
       position: relative;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 8px 48px rgba(0,0,0,.18);
     }
 
-    /* ── Subtle grid overlay ── */
+    /* ── Dot grid watermark ── */
     .poster::before {
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(0,229,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0,229,255,.03) 1px, transparent 1px);
-      background-size: 40px 40px;
+      background-image: radial-gradient(circle, rgba(41,121,255,.10) 1px, transparent 1px);
+      background-size: 22px 22px;
       pointer-events: none;
-    }
-
-    /* ── Top accent bar ── */
-    .accent-bar {
-      height: 5px;
-      background: linear-gradient(90deg, #00e5ff, #2979ff 50%, #aa00ff);
-      flex-shrink: 0;
+      z-index: 0;
     }
 
     /* ── Header ── */
     .header {
-      padding: 36px 52px 28px;
-      border-bottom: 1px solid rgba(0,229,255,.1);
       position: relative;
       z-index: 1;
+      background: linear-gradient(135deg, #0d1b4b 0%, #1a3a7a 55%, #0d2d6e 100%);
+      padding: 36px 48px 32px;
+      overflow: hidden;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      gap: 24px;
-    }
-
-    .header-left { flex: 1; }
-
-    .workshop-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 14px;
-      border: 1px solid rgba(0,229,255,.35);
-      border-radius: 99px;
-      font-size: 10.5px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: #00e5ff;
-      background: rgba(0,229,255,.07);
-      margin-bottom: 18px;
-    }
-
-    .badge-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #00e5ff;
-      box-shadow: 0 0 6px #00e5ff;
-    }
-
-    .workshop-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: .04em;
-      color: rgba(204,214,246,.55);
-      margin-bottom: 10px;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: 30px;
-      font-weight: 900;
-      line-height: 1.12;
-      letter-spacing: -.025em;
-      color: #fff;
-      margin-bottom: 6px;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #00e5ff 0%, #2979ff 55%, #aa00ff 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .acronym-line {
-      font-size: 36px;
-      font-weight: 900;
-      letter-spacing: .06em;
-      background: linear-gradient(90deg, #00e5ff, #2979ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-top: 10px;
-    }
-
-    /* ── Header right: IEEE logo area ── */
-    .header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-      flex-shrink: 0;
-      padding-top: 4px;
-    }
-
-    .ieee-box {
-      border: 1.5px solid rgba(0,229,255,.3);
-      border-radius: 10px;
-      padding: 10px 16px;
-      text-align: center;
-      background: rgba(0,229,255,.05);
-    }
-
-    .ieee-label {
-      font-size: 9px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(204,214,246,.5);
-      margin-bottom: 4px;
-    }
-
-    .ieee-name {
-      font-size: 15px;
-      font-weight: 800;
-      color: #00e5ff;
-      letter-spacing: .04em;
-    }
-
-    .ieee-sub {
-      font-size: 9.5px;
-      color: rgba(204,214,246,.6);
-      margin-top: 3px;
-    }
-
-    /* ── Hero band ── */
-    .hero-band {
-      background: linear-gradient(135deg, rgba(41,121,255,.09) 0%, rgba(0,229,255,.04) 50%, rgba(170,0,255,.07) 100%);
-      padding: 24px 52px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid rgba(0,229,255,.08);
-      position: relative;
-      z-index: 1;
-      gap: 16px;
-    }
-
-    .meta-pill {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(0,229,255,.18);
-      border-radius: 10px;
-      padding: 10px 16px;
-    }
-
-    .meta-icon {
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .meta-label {
-      font-size: 9.5px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: rgba(136,146,176,.7);
-      margin-bottom: 2px;
-    }
-
-    .meta-val {
-      font-size: 13px;
-      font-weight: 700;
-      color: #ccd6f6;
-    }
-
-    /* ── Main content ── */
-    .content {
-      padding: 30px 52px 28px;
-      flex: 1;
-      position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 20px;
     }
 
-    /* ── Panels ── */
-    .panel {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(0,229,255,.13);
-      border-radius: 14px;
-      padding: 20px 22px;
+    /* SVG decorative network in header background */
+    .header-bg {
+      position: absolute;
+      inset: 0;
+      opacity: .18;
+      pointer-events: none;
     }
 
-    .panel-title {
-      font-size: 9.5px;
+    /* Glowing orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+    .orb-1 { width: 280px; height: 280px; background: #2979ff; top: -80px; right: 80px; opacity: .35; }
+    .orb-2 { width: 180px; height: 180px; background: #00e5ff; top: 20px; right: 260px; opacity: .22; }
+    .orb-3 { width: 150px; height: 150px; background: #aa00ff; bottom: -60px; right: 0; opacity: .28; }
+
+    .header-left { flex: 1; position: relative; z-index: 2; }
+    .header-right { position: relative; z-index: 2; flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+
+    .cfp-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 13px;
+      border: 1px solid rgba(0,229,255,.5);
+      border-radius: 99px;
+      font-size: 10px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #00e5ff;
+      background: rgba(0,229,255,.1);
+      margin-bottom: 14px;
+    }
+    .cfp-dot { width: 6px; height: 6px; border-radius: 50%; background: #00e5ff; box-shadow: 0 0 6px #00e5ff; }
+
+    .h-super {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 27px;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .grad {
+      background: linear-gradient(90deg, #00e5ff, #60a5fa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .acronym {
+      margin-top: 12px;
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      background: linear-gradient(90deg, #00e5ff 0%, #60a5fa 60%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ieee-card {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 10px;
+      padding: 10px 15px;
+      text-align: center;
+      backdrop-filter: blur(6px);
+      min-width: 148px;
+    }
+    .ieee-card .lbl { font-size: 8.5px; letter-spacing: .13em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-bottom: 3px; }
+    .ieee-card .val { font-size: 14px; font-weight: 800; color: #fff; }
+    .ieee-card .sub { font-size: 9px; color: rgba(255,255,255,.55); margin-top: 2px; line-height: 1.4; }
+
+    /* ── Key-info band ── */
+    .info-band {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      background: #f0f4ff;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .info-cell {
+      flex: 1;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-right: 1px solid #dde3f0;
+    }
+    .info-cell:last-child { border-right: none; }
+
+    .info-icon { font-size: 18px; flex-shrink: 0; }
+    .info-lbl { font-size: 8.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: #6b7280; margin-bottom: 2px; }
+    .info-val { font-size: 11.5px; font-weight: 700; color: #1e3a8a; }
+    .info-val.hot { color: #0ea5e9; }
+
+    /* ── Body ── */
+    .body {
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+    }
+
+    /* left column gets a subtle tint */
+    .col-left {
+      padding: 22px 22px 22px 28px;
+      border-right: 1px solid #e8edf5;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .col-right {
+      padding: 22px 28px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ── Section cards ── */
+    .card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* accent stripe on left edge */
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 3px 0 0 3px;
+    }
+    .card.blue::before  { background: linear-gradient(180deg, #2979ff, #00e5ff); }
+    .card.teal::before  { background: linear-gradient(180deg, #00e5ff, #0ea5e9); }
+    .card.purple::before{ background: linear-gradient(180deg, #aa00ff, #7c3aed); }
+    .card.green::before { background: linear-gradient(180deg, #10b981, #06b6d4); }
+
+    .card-title {
+      font-size: 9px;
       font-weight: 700;
       letter-spacing: .14em;
       text-transform: uppercase;
-      color: #00e5ff;
-      margin-bottom: 14px;
+      color: #6b7280;
+      margin-bottom: 11px;
       display: flex;
       align-items: center;
-      gap: 8px;
-    }
-
-    .panel-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(0,229,255,.18);
-    }
-
-    /* ── Topics ── */
-    .topics-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
       gap: 7px;
     }
+    .card-title::after { content: ''; flex: 1; height: 1px; background: #e2e8f0; }
 
+    /* ── About ── */
+    .about-text {
+      font-size: 10.5px;
+      color: #374151;
+      line-height: 1.7;
+    }
+    .about-text strong { color: #1e3a8a; font-weight: 700; }
+
+    /* ── Topics ── */
+    .topics-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
     .topics-list li {
       display: flex;
       align-items: flex-start;
-      gap: 9px;
-      font-size: 11px;
-      color: rgba(204,214,246,.8);
+      gap: 8px;
+      font-size: 10px;
+      color: #374151;
       line-height: 1.4;
     }
-
-    .topic-num {
-      font-size: 9px;
+    .tnum {
+      font-size: 8.5px;
       font-weight: 700;
-      color: #00e5ff;
-      background: rgba(0,229,255,.1);
+      color: #2979ff;
+      background: #eff6ff;
       border-radius: 4px;
       padding: 1px 5px;
       flex-shrink: 0;
       margin-top: 1px;
-      font-variant-numeric: tabular-nums;
     }
 
     /* ── Dates ── */
-    .dates-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .date-row {
+    .dates-list { display: flex; flex-direction: column; gap: 0; }
+    .dr {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 9px 0;
-      border-bottom: 1px solid rgba(0,229,255,.07);
-      gap: 12px;
+      padding: 7px 0;
+      border-bottom: 1px solid #f1f5f9;
+      gap: 9px;
     }
-
-    .date-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .date-row:first-child { padding-top: 0; }
-
-    .date-row.key .date-name {
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .date-row.key .date-date {
-      color: #00e5ff;
-      font-weight: 800;
-    }
-
-    .date-icon { font-size: 14px; flex-shrink: 0; }
-
-    .date-name {
-      font-size: 11px;
-      color: rgba(204,214,246,.75);
-      font-weight: 500;
-      flex: 1;
-    }
-
-    .date-date {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: rgba(204,214,246,.9);
-      white-space: nowrap;
-    }
+    .dr:last-child { border-bottom: none; padding-bottom: 0; }
+    .dr:first-child { padding-top: 0; }
+    .dr.key { background: #eff6ff; margin: 0 -18px; padding: 8px 18px; border-bottom: 1px solid #dbeafe; border-top: 1px solid #dbeafe; border-left: 3px solid #2979ff; }
+    .dr.key .dname { color: #1e3a8a; font-weight: 700; }
+    .dr.key .ddate { color: #2979ff; font-weight: 800; }
+    .dicon { font-size: 13px; flex-shrink: 0; }
+    .dname { font-size: 10px; color: #374151; font-weight: 500; flex: 1; }
+    .ddate { font-size: 10.5px; font-weight: 700; color: #4b5563; white-space: nowrap; }
+    .daoe  { font-size: 8.5px; color: #9ca3af; margin-top: 6px; }
 
     /* ── Submission ── */
-    .sub-rows {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
+    .sub-rows { display: flex; flex-direction: column; gap: 8px; }
+    .sr { display: flex; align-items: flex-start; gap: 8px; font-size: 10px; color: #374151; line-height: 1.45; }
+    .sr-icon { font-size: 12px; flex-shrink: 0; margin-top: 1px; }
 
-    .sub-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 9px;
-      font-size: 11px;
-      color: rgba(204,214,246,.8);
-      line-height: 1.4;
-    }
-
-    .sub-row-icon { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
-
-    .sub-url-box {
-      margin-top: 14px;
-      background: rgba(0,229,255,.06);
-      border: 1px solid rgba(0,229,255,.28);
+    .url-box {
+      margin-top: 12px;
+      background: linear-gradient(135deg, #eff6ff, #f0fdf4);
+      border: 1.5px solid #93c5fd;
       border-radius: 8px;
-      padding: 10px 14px;
+      padding: 9px 14px;
       text-align: center;
     }
-
-    .sub-url-label {
-      font-size: 9px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: rgba(136,146,176,.7);
-      margin-bottom: 4px;
-    }
-
-    .sub-url {
-      font-size: 13px;
-      font-weight: 700;
-      color: #00e5ff;
-      letter-spacing: .01em;
-    }
+    .url-lbl { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: #6b7280; margin-bottom: 3px; }
+    .url-val { font-size: 13px; font-weight: 800; color: #1d4ed8; }
 
     /* ── Chairs ── */
-    .chairs-list {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .chair-row {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-    }
-
-    .chair-avatar {
-      width: 36px; height: 36px;
+    .chairs-wrap { display: flex; flex-direction: column; gap: 9px; }
+    .chair-row { display: flex; align-items: center; gap: 10px; }
+    .ch-av {
+      width: 34px; height: 34px;
       border-radius: 8px;
-      background: linear-gradient(135deg, #2979ff, #aa00ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 800;
-      color: #fff;
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; color: #fff;
       flex-shrink: 0;
     }
+    .ch-name { font-size: 11px; font-weight: 700; color: #1e293b; }
+    .ch-aff  { font-size: 9px; color: #6b7280; margin-top: 1px; }
 
-    .chair-name {
-      font-size: 12px;
-      font-weight: 700;
-      color: #e2e8f0;
+    /* ── Decorative corner circuit ── */
+    .deco-corner {
+      position: absolute;
+      pointer-events: none;
+      opacity: .06;
+      z-index: 0;
     }
-
-    .chair-aff {
-      font-size: 10px;
-      color: rgba(136,146,176,.8);
-      margin-top: 1px;
-    }
-
-    /* ── About panel (full-width) ── */
-    .panel-full {
-      grid-column: 1 / -1;
-    }
-
-    .about-text {
-      font-size: 11px;
-      color: rgba(204,214,246,.7);
-      line-height: 1.7;
-    }
-
-    .about-text strong { color: #00e5ff; }
+    .deco-tr { top: 0; right: 0; }
+    .deco-bl { bottom: 60px; left: 0; transform: rotate(180deg); }
 
     /* ── Footer ── */
     .footer {
-      padding: 18px 52px;
-      border-top: 1px solid rgba(0,229,255,.1);
+      position: relative;
+      z-index: 1;
+      background: #f8fafc;
+      border-top: 2px solid #e2e8f0;
+      padding: 14px 28px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
-      z-index: 1;
-      background: rgba(0,0,0,.2);
+      gap: 16px;
     }
 
     .footer-logo {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 900;
-      background: linear-gradient(90deg, #00e5ff, #2979ff);
+      letter-spacing: .05em;
+      background: linear-gradient(90deg, #1d4ed8, #0ea5e9);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      letter-spacing: .04em;
     }
 
-    .footer-meta {
-      font-size: 10px;
-      color: rgba(136,146,176,.7);
-      text-align: center;
-      line-height: 1.6;
-    }
+    .footer-center { font-size: 9px; color: #6b7280; text-align: center; line-height: 1.6; }
 
-    .footer-url {
-      font-size: 11px;
-      font-weight: 600;
-      color: #00e5ff;
-      text-align: right;
-    }
+    .footer-right { font-size: 10px; font-weight: 700; color: #1d4ed8; text-align: right; }
 
-    /* ── Print ── */
     @media print {
       body { background: #fff; padding: 0; }
-      .poster {
-        width: 210mm;
-        min-height: 297mm;
-        border: none;
-        border-radius: 0;
-        page-break-after: avoid;
-      }
+      .poster { width: 210mm; min-height: 297mm; border-radius: 0; box-shadow: none; }
     }
   </style>
 </head>
 <body>
-
 <div class="poster">
 
-  <!-- top accent -->
-  <div class="accent-bar"></div>
+  <!-- decorative circuit corners -->
+  <svg class="deco-corner deco-tr" width="260" height="260" viewBox="0 0 260 260" fill="none">
+    <circle cx="200" cy="60"  r="40" stroke="#2979ff" stroke-width="1.5"/>
+    <circle cx="200" cy="60"  r="20" stroke="#2979ff" stroke-width="1"/>
+    <circle cx="200" cy="60"  r="5"  fill="#2979ff"/>
+    <circle cx="110" cy="150" r="25" stroke="#00e5ff" stroke-width="1.5"/>
+    <circle cx="110" cy="150" r="5"  fill="#00e5ff"/>
+    <circle cx="50"  cy="50"  r="15" stroke="#aa00ff" stroke-width="1"/>
+    <circle cx="50"  cy="50"  r="5"  fill="#aa00ff"/>
+    <line x1="200" y1="60"  x2="110" y2="150" stroke="#2979ff" stroke-width="1"/>
+    <line x1="110" y1="150" x2="50"  y2="50"  stroke="#00e5ff" stroke-width="1"/>
+    <line x1="200" y1="60"  x2="50"  y2="50"  stroke="#aa00ff" stroke-width="1" stroke-dasharray="4 3"/>
+    <circle cx="240" cy="180" r="10" stroke="#2979ff" stroke-width="1"/>
+    <circle cx="240" cy="180" r="3"  fill="#2979ff"/>
+    <line x1="200" y1="60"  x2="240" y2="180" stroke="#2979ff" stroke-width="1" stroke-dasharray="4 3"/>
+    <circle cx="160" cy="220" r="8"  stroke="#00e5ff" stroke-width="1"/>
+    <circle cx="160" cy="220" r="3"  fill="#00e5ff"/>
+    <line x1="110" y1="150" x2="160" y2="220" stroke="#00e5ff" stroke-width="1"/>
+  </svg>
 
-  <!-- header -->
+  <svg class="deco-corner deco-bl" width="220" height="220" viewBox="0 0 220 220" fill="none">
+    <circle cx="180" cy="40"  r="30" stroke="#2979ff" stroke-width="1.5"/>
+    <circle cx="180" cy="40"  r="5"  fill="#2979ff"/>
+    <circle cx="90"  cy="130" r="22" stroke="#00e5ff" stroke-width="1.5"/>
+    <circle cx="90"  cy="130" r="5"  fill="#00e5ff"/>
+    <circle cx="40"  cy="40"  r="12" stroke="#aa00ff" stroke-width="1"/>
+    <circle cx="40"  cy="40"  r="4"  fill="#aa00ff"/>
+    <line x1="180" y1="40"  x2="90"  y2="130" stroke="#2979ff" stroke-width="1"/>
+    <line x1="90"  y1="130" x2="40"  y2="40"  stroke="#00e5ff" stroke-width="1"/>
+    <line x1="180" y1="40"  x2="40"  y2="40"  stroke="#aa00ff" stroke-width="1" stroke-dasharray="4 3"/>
+  </svg>
+
+  <!-- ── Header ── -->
   <div class="header">
+    <!-- animated network SVG behind content -->
+    <svg class="header-bg" viewBox="0 0 794 200" preserveAspectRatio="xMidYMid slice">
+      <!-- nodes -->
+      <circle cx="60"  cy="30"  r="3" fill="#00e5ff"/>
+      <circle cx="180" cy="80"  r="4" fill="#2979ff"/>
+      <circle cx="320" cy="20"  r="3" fill="#00e5ff"/>
+      <circle cx="460" cy="90"  r="4" fill="#aa00ff"/>
+      <circle cx="580" cy="30"  r="3" fill="#00e5ff"/>
+      <circle cx="680" cy="110" r="5" fill="#2979ff"/>
+      <circle cx="750" cy="50"  r="3" fill="#00e5ff"/>
+      <circle cx="120" cy="160" r="3" fill="#aa00ff"/>
+      <circle cx="260" cy="140" r="4" fill="#2979ff"/>
+      <circle cx="400" cy="170" r="3" fill="#00e5ff"/>
+      <circle cx="540" cy="150" r="4" fill="#aa00ff"/>
+      <circle cx="720" cy="170" r="3" fill="#2979ff"/>
+      <!-- edges -->
+      <line x1="60"  y1="30"  x2="180" y2="80"  stroke="#00e5ff" stroke-width=".8"/>
+      <line x1="180" y1="80"  x2="320" y2="20"  stroke="#2979ff" stroke-width=".8"/>
+      <line x1="320" y1="20"  x2="460" y2="90"  stroke="#00e5ff" stroke-width=".8"/>
+      <line x1="460" y1="90"  x2="580" y2="30"  stroke="#aa00ff" stroke-width=".8"/>
+      <line x1="580" y1="30"  x2="680" y2="110" stroke="#00e5ff" stroke-width=".8"/>
+      <line x1="680" y1="110" x2="750" y2="50"  stroke="#2979ff" stroke-width=".8"/>
+      <line x1="120" y1="160" x2="260" y2="140" stroke="#aa00ff" stroke-width=".8"/>
+      <line x1="260" y1="140" x2="400" y2="170" stroke="#2979ff" stroke-width=".8"/>
+      <line x1="400" y1="170" x2="540" y2="150" stroke="#00e5ff" stroke-width=".8"/>
+      <line x1="540" y1="150" x2="720" y2="170" stroke="#aa00ff" stroke-width=".8"/>
+      <line x1="180" y1="80"  x2="260" y2="140" stroke="#2979ff" stroke-width=".6" stroke-dasharray="4 3"/>
+      <line x1="460" y1="90"  x2="400" y2="170" stroke="#aa00ff" stroke-width=".6" stroke-dasharray="4 3"/>
+      <line x1="680" y1="110" x2="720" y2="170" stroke="#2979ff" stroke-width=".6" stroke-dasharray="4 3"/>
+    </svg>
+
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
     <div class="header-left">
-      <div class="workshop-badge">
-        <span class="badge-dot"></span>
-        Call for Papers
-      </div>
-      <div class="workshop-title">IEEE ICNP 2026 Workshop</div>
+      <div class="cfp-badge"><span class="cfp-dot"></span>Call for Papers</div>
+      <div class="h-super">IEEE ICNP 2026 Workshop</div>
       <h1>
         Network Infrastructure<br/>
         &amp; Protocols for<br/>
-        <span class="gradient-text">AI Agents</span>
+        <span class="grad">AI Agents</span>
       </h1>
-      <div class="acronym-line">NIPA 2026</div>
+      <div class="acronym">NIPA 2026</div>
     </div>
+
     <div class="header-right">
-      <div class="ieee-box">
-        <div class="ieee-label">Co-located with</div>
-        <div class="ieee-name">IEEE ICNP 2026</div>
-        <div class="ieee-sub">International Conference on<br/>Network Protocols</div>
+      <div class="ieee-card">
+        <div class="lbl">Co-located with</div>
+        <div class="val">IEEE ICNP 2026</div>
+        <div class="sub">International Conference on<br/>Network Protocols</div>
       </div>
-      <div class="ieee-box" style="margin-top:6px;border-color:rgba(170,0,255,.3);background:rgba(170,0,255,.05);">
-        <div class="ieee-label">Proceedings in</div>
-        <div class="ieee-name" style="color:#aa00ff;font-size:13px;">IEEE Xplore</div>
-        <div class="ieee-sub">Double-blind peer review</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- hero band -->
-  <div class="hero-band">
-    <div class="meta-pill">
-      <div class="meta-icon">📅</div>
-      <div>
-        <div class="meta-label">Workshop Day</div>
-        <div class="meta-val">October 5, 2026</div>
-      </div>
-    </div>
-    <div class="meta-pill">
-      <div class="meta-icon">📍</div>
-      <div>
-        <div class="meta-label">Location</div>
-        <div class="meta-val">Tempe, Arizona, USA</div>
-      </div>
-    </div>
-    <div class="meta-pill" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06);">
-      <div class="meta-icon">⏰</div>
-      <div>
-        <div class="meta-label">Submission Deadline</div>
-        <div class="meta-val" style="color:#00e5ff;">June 26, 2026 (AoE)</div>
-      </div>
-    </div>
-    <div class="meta-pill">
-      <div class="meta-icon">📄</div>
-      <div>
-        <div class="meta-label">Paper Length</div>
-        <div class="meta-val">Up to 6 Pages · IEEE Format</div>
+      <div class="ieee-card" style="border-color:rgba(192,132,252,.4);background:rgba(192,132,252,.1);">
+        <div class="lbl">Proceedings in</div>
+        <div class="val" style="color:#c084fc;">IEEE Xplore</div>
+        <div class="sub">Double-blind peer review</div>
       </div>
     </div>
   </div>
 
-  <!-- main content grid -->
-  <div class="content">
-
-    <!-- about -->
-    <div class="panel panel-full">
-      <div class="panel-title">About the Workshop</div>
-      <p class="about-text">
-        As AI evolves from isolated LLMs to collaborative multi-agent systems, the networking landscape faces an unprecedented paradigm shift.
-        The <strong>Internet of Agents (IoA)</strong> envisions a distributed ecosystem where autonomous agents continuously communicate,
-        negotiate, and synchronize — generating highly specific traffic patterns that challenge traditional network infrastructures.
-        NIPA 2026 brings together researchers and experts from academia and industry to share the latest research, identify gaps,
-        and define the roadmap for <strong>agent-native networking</strong>.
-      </p>
-    </div>
-
-    <!-- topics -->
-    <div class="panel" style="grid-row: span 2;">
-      <div class="panel-title">Topics of Interest</div>
-      <ul class="topics-list">
-        <li><span class="topic-num">01</span>High-performance network technology for agentic workloads</li>
-        <li><span class="topic-num">02</span>Congestion control for multi-agent synchronization</li>
-        <li><span class="topic-num">03</span>Hardware-software co-design for AI networking</li>
-        <li><span class="topic-num">04</span>Novel architectures for agent interconnection</li>
-        <li><span class="topic-num">05</span>Agent communication &amp; collaboration protocols (MCP, A2A, ANP)</li>
-        <li><span class="topic-num">06</span>Semantic-aware and goal-oriented communication</li>
-        <li><span class="topic-num">07</span>P2P, client-server &amp; hybrid agent network topologies</li>
-        <li><span class="topic-num">08</span>Adaptive workload partitioning across cloud and edge</li>
-        <li><span class="topic-num">09</span>Dynamic capability discovery and management</li>
-        <li><span class="topic-num">10</span>Dynamic task matching and workflow orchestration</li>
-        <li><span class="topic-num">11</span>Conflict resolution and multi-agent debate</li>
-        <li><span class="topic-num">12</span>Decentralized identity and access control</li>
-        <li><span class="topic-num">13</span>Defending against cross-agent threats</li>
-        <li><span class="topic-num">14</span>Privacy-aware architectures</li>
-      </ul>
-    </div>
-
-    <!-- dates -->
-    <div class="panel">
-      <div class="panel-title">Important Dates</div>
-      <div class="dates-list">
-        <div class="date-row key">
-          <span class="date-icon">📝</span>
-          <span class="date-name">Paper Submission</span>
-          <span class="date-date">Jun 26, 2026</span>
-        </div>
-        <div class="date-row">
-          <span class="date-icon">📬</span>
-          <span class="date-name">Acceptance Notification</span>
-          <span class="date-date">Jul 31, 2026</span>
-        </div>
-        <div class="date-row">
-          <span class="date-icon">📄</span>
-          <span class="date-name">Camera-Ready Deadline</span>
-          <span class="date-date">Aug 25, 2026</span>
-        </div>
-        <div class="date-row">
-          <span class="date-icon">🎤</span>
-          <span class="date-name">Workshop Day</span>
-          <span class="date-date">Oct 5, 2026</span>
-        </div>
-      </div>
-      <p style="font-size:9.5px;color:rgba(136,146,176,.6);margin-top:10px;">All deadlines are Anywhere on Earth (AoE, UTC−12)</p>
-    </div>
-
-    <!-- submission -->
-    <div class="panel">
-      <div class="panel-title">Submission Guidelines</div>
-      <div class="sub-rows">
-        <div class="sub-row"><span class="sub-row-icon">📑</span>Original research, position papers, and early-stage work</div>
-        <div class="sub-row"><span class="sub-row-icon">📐</span>Up to <strong style="color:#e2e8f0">6 pages</strong> in IEEE Computer Society format (incl. references &amp; appendices)</div>
-        <div class="sub-row"><span class="sub-row-icon">🔍</span>Double-blind review — anonymize submissions; no author names or affiliations</div>
-        <div class="sub-row"><span class="sub-row-icon">🚫</span>Unpublished work not under review elsewhere</div>
-      </div>
-      <div class="sub-url-box">
-        <div class="sub-url-label">Submit at</div>
-        <div class="sub-url">nipa26.hotcrp.com</div>
+  <!-- ── Key-info band ── -->
+  <div class="info-band">
+    <div class="info-cell">
+      <div class="info-icon">📅</div>
+      <div>
+        <div class="info-lbl">Workshop Day</div>
+        <div class="info-val">October 5, 2026</div>
       </div>
     </div>
+    <div class="info-cell">
+      <div class="info-icon">📍</div>
+      <div>
+        <div class="info-lbl">Location</div>
+        <div class="info-val">Tempe, Arizona, USA</div>
+      </div>
+    </div>
+    <div class="info-cell">
+      <div class="info-icon">⏰</div>
+      <div>
+        <div class="info-lbl">Submission Deadline</div>
+        <div class="info-val hot">June 26, 2026 (AoE)</div>
+      </div>
+    </div>
+    <div class="info-cell">
+      <div class="info-icon">📄</div>
+      <div>
+        <div class="info-lbl">Paper Length</div>
+        <div class="info-val">Up to 6 Pages · IEEE</div>
+      </div>
+    </div>
+  </div>
 
-    <!-- chairs -->
-    <div class="panel panel-full">
-      <div class="panel-title">Workshop Co-Chairs</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
-        <div class="chair-row">
-          <div class="chair-avatar">HS</div>
-          <div>
-            <div class="chair-name">Haoyu Song</div>
-            <div class="chair-aff">Futurewei Technologies</div>
+  <!-- ── Body ── -->
+  <div class="body">
+    <div class="col-left">
+
+      <!-- About -->
+      <div class="card blue">
+        <div class="card-title">About the Workshop</div>
+        <p class="about-text">
+          As AI evolves from isolated LLMs to collaborative multi-agent systems, the networking landscape
+          faces an unprecedented paradigm shift. The <strong>Internet of Agents (IoA)</strong> envisions
+          a distributed ecosystem where autonomous agents continuously communicate, negotiate, and
+          synchronize — generating traffic patterns that challenge traditional infrastructures.
+          NIPA 2026 brings together researchers from academia and industry to share the latest research
+          and define the roadmap for <strong>agent-native networking</strong>.
+        </p>
+      </div>
+
+      <!-- Topics -->
+      <div class="card teal" style="flex:1;">
+        <div class="card-title">Topics of Interest</div>
+        <ul class="topics-list">
+          <li><span class="tnum">01</span>High-performance network tech for agentic workloads</li>
+          <li><span class="tnum">02</span>Congestion control for multi-agent synchronization</li>
+          <li><span class="tnum">03</span>Hardware-software co-design for AI networking</li>
+          <li><span class="tnum">04</span>Novel architectures for agent interconnection</li>
+          <li><span class="tnum">05</span>Agent communication protocols — MCP, A2A, ANP</li>
+          <li><span class="tnum">06</span>Semantic-aware and goal-oriented communication</li>
+          <li><span class="tnum">07</span>P2P, client-server &amp; hybrid agent topologies</li>
+          <li><span class="tnum">08</span>Adaptive workload partitioning: cloud &amp; edge</li>
+          <li><span class="tnum">09</span>Dynamic capability discovery and management</li>
+          <li><span class="tnum">10</span>Dynamic task matching &amp; workflow orchestration</li>
+          <li><span class="tnum">11</span>Conflict resolution and multi-agent debate</li>
+          <li><span class="tnum">12</span>Decentralized identity and access control</li>
+          <li><span class="tnum">13</span>Defending against cross-agent threats</li>
+          <li><span class="tnum">14</span>Privacy-aware architectures</li>
+        </ul>
+      </div>
+
+    </div><!-- /col-left -->
+
+    <div class="col-right">
+
+      <!-- Dates -->
+      <div class="card blue">
+        <div class="card-title">Important Dates</div>
+        <div class="dates-list">
+          <div class="dr key">
+            <span class="dicon">📝</span>
+            <span class="dname">Paper Submission</span>
+            <span class="ddate">Jun 26, 2026</span>
+          </div>
+          <div class="dr">
+            <span class="dicon">📬</span>
+            <span class="dname">Acceptance Notification</span>
+            <span class="ddate">Jul 31, 2026</span>
+          </div>
+          <div class="dr">
+            <span class="dicon">📄</span>
+            <span class="dname">Camera-Ready Deadline</span>
+            <span class="ddate">Aug 25, 2026</span>
+          </div>
+          <div class="dr">
+            <span class="dicon">🎤</span>
+            <span class="dname">Workshop Day</span>
+            <span class="ddate">Oct 5, 2026</span>
           </div>
         </div>
-        <div class="chair-row">
-          <div class="chair-avatar">ZQ</div>
-          <div>
-            <div class="chair-name">Zafar Ayyub Qazi</div>
-            <div class="chair-aff">LUMS</div>
-          </div>
+        <p class="daoe">All deadlines are Anywhere on Earth (AoE, UTC−12)</p>
+      </div>
+
+      <!-- Submission -->
+      <div class="card purple">
+        <div class="card-title">Submission Guidelines</div>
+        <div class="sub-rows">
+          <div class="sr"><span class="sr-icon">📑</span>Original research, position papers, and early-stage work welcome</div>
+          <div class="sr"><span class="sr-icon">📐</span>Up to <strong>6 pages</strong> in IEEE Computer Society format (incl. references &amp; appendices)</div>
+          <div class="sr"><span class="sr-icon">🔍</span>Double-blind review — anonymize submissions; omit author names &amp; affiliations</div>
+          <div class="sr"><span class="sr-icon">🚫</span>Unpublished work not under review elsewhere</div>
         </div>
-        <div class="chair-row">
-          <div class="chair-avatar">HX</div>
-          <div>
-            <div class="chair-name">Hong Xu</div>
-            <div class="chair-aff">CUHK</div>
+        <div class="url-box">
+          <div class="url-lbl">Submit your paper at</div>
+          <div class="url-val">nipa26.hotcrp.com</div>
+        </div>
+      </div>
+
+      <!-- Chairs -->
+      <div class="card green">
+        <div class="card-title">Workshop Co-Chairs</div>
+        <div class="chairs-wrap">
+          <div class="chair-row">
+            <div class="ch-av">HS</div>
+            <div><div class="ch-name">Haoyu Song</div><div class="ch-aff">Futurewei Technologies</div></div>
+          </div>
+          <div class="chair-row">
+            <div class="ch-av">ZQ</div>
+            <div><div class="ch-name">Zafar Ayyub Qazi</div><div class="ch-aff">Lahore Univ. of Management Sciences (LUMS)</div></div>
+          </div>
+          <div class="chair-row">
+            <div class="ch-av">HX</div>
+            <div><div class="ch-name">Hong Xu</div><div class="ch-aff">The Chinese University of Hong Kong (CUHK)</div></div>
           </div>
         </div>
       </div>
-    </div>
 
-  </div><!-- /content -->
+    </div><!-- /col-right -->
+  </div><!-- /body -->
 
-  <!-- footer -->
+  <!-- ── Footer ── -->
   <div class="footer">
     <div class="footer-logo">NIPA 2026</div>
-    <div class="footer-meta">
+    <div class="footer-center">
       IEEE ICNP Workshop on Network Infrastructure and Protocols for AI Agents<br/>
       Co-located with IEEE ICNP 2026 · Tempe, Arizona, USA
     </div>
-    <div class="footer-url">nipa26.hotcrp.com</div>
+    <div class="footer-right">nipa26.hotcrp.com</div>
   </div>
 
-</div><!-- /poster -->
-
+</div>
 </body>
 </html>
