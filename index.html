@@ -489,6 +489,95 @@
       margin-top: .25rem;
     }
 
+    /* ─── Agenda ─── */
+    #agenda { padding: 6rem 0; }
+
+    .agenda-list {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .agenda-session-label {
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 1rem;
+      display: flex;
+      align-items: center;
+      gap: .8rem;
+    }
+
+    .agenda-session-label:not(:first-child) { margin-top: 2.8rem; }
+
+    .agenda-session-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .agenda-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .agenda-item {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 1.5rem;
+      padding: 1.3rem 1.7rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      transition: background .25s;
+    }
+
+    .agenda-group .agenda-item:first-child { border-radius: 12px 12px 0 0; }
+    .agenda-group .agenda-item:last-child  { border-radius: 0 0 12px 12px; }
+    .agenda-item + .agenda-item { border-top: none; }
+
+    .agenda-item:hover { background: rgba(0,229,255,0.06); }
+
+    .agenda-item.highlight {
+      border-color: rgba(0,229,255,.45);
+      background: rgba(0,229,255,0.06);
+    }
+
+    .agenda-time {
+      font-weight: 700;
+      font-size: .85rem;
+      color: var(--cyan);
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      padding-top: .1rem;
+    }
+
+    .agenda-kind {
+      display: inline-block;
+      font-size: .66rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      background: rgba(0,229,255,.12);
+      border: 1px solid rgba(0,229,255,.3);
+      border-radius: 99px;
+      padding: .15rem .55rem;
+      margin-bottom: .5rem;
+    }
+
+    .agenda-title {
+      font-size: .95rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      line-height: 1.4;
+    }
+
+    .agenda-speaker {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-top: .35rem;
+    }
+
     /* ─── Submission ─── */
     #submission {
       padding: 6rem 0;
@@ -715,6 +804,7 @@
       .count-grid { grid-template-columns: repeat(2,1fr); }
       .date-item  { grid-template-columns: 1fr; gap: .5rem; }
       .date-val   { text-align: left; }
+      .agenda-item { grid-template-columns: 1fr; gap: .4rem; }
       .stat-cards { grid-template-columns: 1fr 1fr; }
     }
 
@@ -739,6 +829,7 @@
 <nav>
   <div class="nav-logo">NIPA 2026</div>
   <ul class="nav-links">
+    <li><a href="#agenda">Agenda</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#topics">Topics</a></li>
     <li><a href="#dates">Dates</a></li>
@@ -752,7 +843,7 @@
   <div class="hero-inner">
     <div class="badge">
       <span class="badge-dot"></span>
-      IEEE ICNP 2026 Workshop &nbsp;·&nbsp; Call for Papers Open
+      IEEE ICNP 2026 Workshop
     </div>
 
     <h1>
@@ -771,7 +862,7 @@
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
           <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
-        Submission Deadline: July 3, 2026 &nbsp;<span style="font-size:.72rem;background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.45);color:#00e676;border-radius:99px;padding:.15rem .55rem;letter-spacing:.06em;vertical-align:middle;">Extended</span>
+        October 5, 2026
       </div>
       <div class="meta-item">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -780,33 +871,73 @@
         </svg>
         Tempe, Arizona, USA
       </div>
-      <div class="meta-item">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-        </svg>
-        Up to 6 Pages · IEEE Format
-      </div>
     </div>
 
-    <div class="btn-group">
-      <a href="#submission" class="btn btn-primary">Submit Paper</a>
-      <a href="#topics" class="btn btn-outline">Topics of Interest</a>
-    </div>
   </div>
 </section>
 
-<!-- ─── Countdown ─── -->
-<section id="countdown">
+<!-- ─── Agenda ─── -->
+<section id="agenda">
   <div class="container">
+    <div class="glow-divider"></div>
     <div class="section-title reveal">
-      <span class="section-tag">Submission Deadline</span>
-      <h2>July 3, 2026 &nbsp;<span style="color:var(--muted);font-weight:400;font-size:1.1rem">(Anywhere on Earth)</span> &nbsp;<span style="font-size:.75rem;background:rgba(0,230,118,.15);border:1px solid rgba(0,230,118,.45);color:#00e676;border-radius:99px;padding:.2rem .7rem;letter-spacing:.06em;vertical-align:middle;">Extended</span></h2>
+      <span class="section-tag">Program</span>
+      <h2>Workshop Agenda</h2>
+      <p>Preliminary schedule for the NIPA 2026 workshop day.</p>
     </div>
-    <div class="count-grid reveal">
-      <div class="count-box"><div class="count-num" id="cd-days">--</div><div class="count-label">Days</div></div>
-      <div class="count-box"><div class="count-num" id="cd-hours">--</div><div class="count-label">Hours</div></div>
-      <div class="count-box"><div class="count-num" id="cd-mins">--</div><div class="count-label">Minutes</div></div>
-      <div class="count-box"><div class="count-num" id="cd-secs">--</div><div class="count-label">Seconds</div></div>
+
+    <div class="agenda-list reveal">
+      <div class="agenda-session-label">Session I</div>
+      <div class="agenda-group">
+        <div class="agenda-item">
+          <div class="agenda-time">8:30 – 8:40</div>
+          <div class="agenda-info">
+            <div class="agenda-title">Welcome Remarks</div>
+          </div>
+        </div>
+        <div class="agenda-item highlight">
+          <div class="agenda-time">8:40 – 9:30</div>
+          <div class="agenda-info">
+            <span class="agenda-kind">Keynote 1</span>
+            <div class="agenda-title">Steering the Internet of Agents: The Case for a Name-Based Network Infrastructure</div>
+            <div class="agenda-speaker">Lixia Zhang &middot; UCLA</div>
+          </div>
+        </div>
+        <div class="agenda-item highlight">
+          <div class="agenda-time">9:30 – 10:20</div>
+          <div class="agenda-info">
+            <span class="agenda-kind">Keynote 2</span>
+            <div class="agenda-title">Design Principles for Systems-meets-AI</div>
+            <div class="agenda-speaker">Vyas Sekar &middot; CMU</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="agenda-session-label">Session II</div>
+      <div class="agenda-group">
+        <div class="agenda-item highlight">
+          <div class="agenda-time">11:00 – 11:40</div>
+          <div class="agenda-info">
+            <span class="agenda-kind">Invited Talk</span>
+            <div class="agenda-title">Intent to Action: Production Network Agents with Confucius</div>
+            <div class="agenda-speaker">Ying Zhang &middot; Meta</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-time">11:40 – 12:00</div>
+          <div class="agenda-info">
+            <div class="agenda-title">When Agents Look Like Beacons: NIDS Evasion by Model Context Protocol Traffic</div>
+            <div class="agenda-speaker">Muhammad Abdullah Sohail &middot; University of Calgary</div>
+          </div>
+        </div>
+        <div class="agenda-item">
+          <div class="agenda-time">12:00 – 12:20</div>
+          <div class="agenda-info">
+            <div class="agenda-title">Characterizing Network Centralization and Observability in the Remote MCP Ecosystem</div>
+            <div class="agenda-speaker">Muhammad Abdullah Sohail &middot; University of Calgary</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -1309,37 +1440,6 @@
   resize();
   createNodes(Math.floor((W * H) / 14000));
   draw();
-})();
-
-/* ─── Countdown Timer ─── */
-(function () {
-  // July 3, 2026 23:59:59 AoE = July 4, 2026 11:59:59 UTC
-  const deadline = new Date('2026-07-04T11:59:59Z');
-
-  function pad(n) { return String(n).padStart(2, '0'); }
-
-  function tick() {
-    const now  = Date.now();
-    const diff = deadline - now;
-    if (diff <= 0) {
-      ['days','hours','mins','secs'].forEach(id => {
-        document.getElementById('cd-' + id).textContent = '00';
-      });
-      return;
-    }
-    const days  = Math.floor(diff / 86400000);
-    const hours = Math.floor((diff % 86400000) / 3600000);
-    const mins  = Math.floor((diff % 3600000)  / 60000);
-    const secs  = Math.floor((diff % 60000)    / 1000);
-
-    document.getElementById('cd-days').textContent  = pad(days);
-    document.getElementById('cd-hours').textContent = pad(hours);
-    document.getElementById('cd-mins').textContent  = pad(mins);
-    document.getElementById('cd-secs').textContent  = pad(secs);
-  }
-
-  tick();
-  setInterval(tick, 1000);
 })();
 
 /* ─── Scroll Reveal ─── */
